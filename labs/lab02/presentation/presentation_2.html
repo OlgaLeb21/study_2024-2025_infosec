@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU" xml:lang="ru-RU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2024-01-01" />
+  <title>Лабораторная работа №2. Дискреционное разграничение прав в Linux. Основные атрибуты</title>
+  <style>
+    html {
+      font-family: Arial;
+      font-size: 8pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Courier New;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа №2. Дискреционное разграничение
+прав в Linux. Основные атрибуты</h1>
+<p class="author"><p>Выполнила: Лебедева Ольга Андреевна<br />
+Преподаватель Кулябов Дмитрий Сергеевич д.ф.-м.н.,   профессор кафедры
+прикладной информатики и кибербезопасности</p></p>
+<p class="date"><p>2024</p></p>
+</header>
+<h2 id="цель-работы">Цель работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов,
+закрепление теоретических основ дискреционного разграничения доступа в
+современных системах с открытым кодом на базе ОС Linux[1].</p>
+<h2 id="теоретическое-введение">Теоретическое введение</h2>
+<p>Программа VirtualBox предоставляет широкий спектр возможностей для
+работы с виртуальными машинами. Это решение подходит для тестирования
+новых операционных систем, запуска старых приложений или изоляции
+потенциально опасного программного обеспечения. Благодаря интуитивно
+понятному интерфейсу и богатому функционалу, VirtualBox стал выбором
+многих пользователей по всему миру.</p>
+<h2 id="выполнение-лабораторной-работы">Выполнение лабораторной
+работы</h2>
+<p>В установленной при выполнении предыдущей лабораторной работы
+операционной системе создайте учётную запись пользователя guest: Cм. <a
+href="#fig:001">рис. 1</a></p>
+<figure id="fig:001">
+<img src="1.jpg" style="width:70.0%" alt="Создание учетной записи" />
+<figcaption aria-hidden="true">Создание учетной записи</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-1">Выполнение лабораторной
+работы</h2>
+<p>Задайте пароль для пользователя guest: Cм. <a href="#fig:002">рис.
+2</a></p>
+<figure id="fig:002">
+<img src="2.jpg" style="width:70.0%" alt="Создание пароля" />
+<figcaption aria-hidden="true">Создание пароля</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-2">Выполнение лабораторной
+работы</h2>
+<p>Войдите в систему от имени пользователя guest: Cм. <a
+href="#fig:003">рис. 3</a></p>
+<figure id="fig:003">
+<img src="3.jpg" style="width:70.0%" alt="Учетная запись guest" />
+<figcaption aria-hidden="true">Учетная запись guest</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-3">Выполнение лабораторной
+работы</h2>
+<p>Определите директорию, в которой вы находитесь, командой pwd.
+Сравните её с приглашением командной строки. Определите, является ли она
+вашей домашней директорией? Если нет, зайдите в домашнюю директорию: Cм.
+<a href="#fig:004">рис. 4</a>.</p>
+<figure id="fig:004">
+<img src="4.jpg" style="width:70.0%" alt="Домашняя директория" />
+<figcaption aria-hidden="true">Домашняя директория</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-4">Выполнение лабораторной
+работы</h2>
+<p>Чтобы перейти в домашнюю директорию, необходимо выполнить команду cd
+..</p>
+<p>Уточните имя вашего пользователя командой whoami: Cм. <a
+href="#fig:005">рис. 5</a>.</p>
+<figure id="fig:005">
+<img src="5.jpg" style="width:70.0%"
+alt="Проверка имени пользователя" />
+<figcaption aria-hidden="true">Проверка имени пользователя</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-5">Выполнение лабораторной
+работы</h2>
+<p>Уточните имя вашего пользователя, его группу, а также группы, куда
+входит пользователь, командой id. Выведенные значения uid, gid и др.
+запомните. Сравните вывод id с выводом команды groups. Cм. <a
+href="#fig:006">рис. 6</a>.</p>
+<figure id="fig:006">
+<img src="6.jpg" style="width:70.0%" alt="Команды id, groups" />
+<figcaption aria-hidden="true">Команды id, groups</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-6">Выполнение лабораторной
+работы</h2>
+<p>Сравните полученную информацию об имени пользователя с данными,
+выводимыми в приглашении командной строки: Cм. <a href="#fig:007">рис.
+7</a>.</p>
+<figure id="fig:007">
+<img src="7.jpg" style="width:70.0%"
+alt="Сравнение имени пользователя" />
+<figcaption aria-hidden="true">Сравнение имени пользователя</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-7">Выполнение лабораторной
+работы</h2>
+<p>Просмотрите файл /etc/passwd командой cat /etc/passwd Найдите в нём
+свою учётную запись. Определите uid пользователя. Определите gid
+пользователя. Сравните найденные значения с полученными в предыдущих
+пунктах. Cм. <a href="#fig:008">рис. 8</a>.</p>
+<figure id="fig:008">
+<img src="8.jpg" style="width:70.0%" alt="Просмотр файла passwd" />
+<figcaption aria-hidden="true">Просмотр файла passwd</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-8">Выполнение лабораторной
+работы</h2>
+<p>Найдем свою учетную запись и сравним gid пользователя: Cм. <a
+href="#fig:009">рис. 9</a>.</p>
+<figure id="fig:009">
+<img src="9.jpg" style="width:70.0%" alt="gid пользователя" />
+<figcaption aria-hidden="true">gid пользователя</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-9">Выполнение лабораторной
+работы</h2>
+<p>Определите существующие в системе директории командой ls -l /home/
+Удалось ли вам получить список поддиректорий директории /home? Какие
+права установлены на директориях? Есть все права у пользователя. Cм. <a
+href="#fig:010">рис. 10</a>.</p>
+<figure id="fig:010">
+<img src="10.jpg" style="width:70.0%" alt="Просмотр директорий" />
+<figcaption aria-hidden="true">Просмотр директорий</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-10">Выполнение лабораторной
+работы</h2>
+<p>Проверьте, какие расширенные атрибуты установлены на поддиректориях,
+находящихся в директории /home, командой: lsattr /home. Удалось ли вам
+увидеть расширенные атрибуты директории? Удалось ли вам увидеть
+расширенные атрибуты директорий других пользователей? ПОддиректорий нет.
+Cм. <a href="#fig:011">рис. 11</a>.</p>
+<figure id="fig:011">
+<img src="11.jpg" style="width:70.0%" alt="Просмотр поддиректорий" />
+<figcaption aria-hidden="true">Просмотр поддиректорий</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-11">Выполнение лабораторной
+работы</h2>
+<p>Создайте в домашней директории поддиректорию dir1 командой mkdir
+dir1. Определите командами ls -l и lsattr, какие права доступа и
+расширенные атрибуты были выставлены на директорию dir1: Cм. <a
+href="#fig:012">рис. 12</a>. Для пользовател и групп все разрешения
+есть, для остальных изменения запрещены.</p>
+<figure id="fig:012">
+<img src="12.jpg" style="width:70.0%" alt="Поддиректория dir1" />
+<figcaption aria-hidden="true">Поддиректория dir1</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-12">Выполнение лабораторной
+работы</h2>
+<p>Снимите с директории dir1 все атрибуты командой chmod 000 dir1 и
+проверьте с её помощью правильность выполнения команды ls -l. Cм. <a
+href="#fig:013">рис. 13</a>.</p>
+<figure id="fig:013">
+<img src="13.jpg" style="width:70.0%"
+alt="Снятие атрибутов с директории dir1" />
+<figcaption aria-hidden="true">Снятие атрибутов с директории
+dir1</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-13">Выполнение лабораторной
+работы</h2>
+<p>Попытайтесь создать в директории dir1 файл file1 командой echo “test”
+&gt; /home/guest/dir1/file1. Объясните, почему вы получили отказ в
+выполнении операции по созданию файла? Оцените, как сообщение об ошибке
+отразилось на создании файла? Проверьте командой ls -l /home/guest/dir1.
+Cм. <a href="#fig:014">рис. 14</a>. Создание файла произошло неудачно,
+т.к. нет прав на изменение.</p>
+<figure id="fig:014">
+<img src="14.jpg" style="width:70.0%"
+alt="Снятие атрибутов с директории dir1" />
+<figcaption aria-hidden="true">Снятие атрибутов с директории
+dir1</figcaption>
+</figure>
+<h2 id="заключение">Заключение</h2>
+<p>Получили практические навыки работы в консоли с атрибутами файлов,
+закрепили теоретические основы дискреционного разграничения доступа в
+современных системах с открытым кодом на базе ОС Linux.</p>
+<h2 id="библиографическая-справка">Библиографическая справка</h2>
+<p>[1] Документация по VirtualBox: https://www.virtualbox.org/</p>
+</body>
+</html>
