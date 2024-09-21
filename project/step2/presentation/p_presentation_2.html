@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU" xml:lang="ru-RU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2024-01-01" />
+  <title>Индивидуальный проект. Этап 2. Установка DVWA</title>
+  <style>
+    html {
+      font-family: Arial;
+      font-size: 8pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Courier New;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Индивидуальный проект. Этап 2. Установка DVWA</h1>
+<p class="author"><p>Выполнила: Лебедева Ольга Андреевна<br />
+Преподаватель Кулябов Дмитрий Сергеевич д.ф.-м.н.,   профессор кафедры
+прикладной информатики и кибербезопасности</p></p>
+<p class="date"><p>2024</p></p>
+</header>
+<h2 id="цель-работы">Цель работы</h2>
+<p>Приобретение практических навыков по установке DVWA.</p>
+<h2 id="теоретическое-введение">Теоретическое введение</h2>
+<p>Damn Vulnerable Web Application (DVWA) – это веб-приложение PHP /
+MySQL, которое чертовски уязвимо.</p>
+<p>Его основная цель – помочь специалистам по безопасности проверить
+свои навыки и инструменты в правовой среде, помочь веб-разработчикам
+лучше понять процессы обеспечения безопасности веб-приложений и помочь
+студентам и преподавателям узнать о безопасности веб-приложений в
+контролируемой среде[1].</p>
+<h2 id="выполнение-лабораторной-работы">Выполнение лабораторной
+работы</h2>
+<p>Начнём выполнение лабораторной работы c склонирования репозитория по
+предоставленной ссылке: Cм. <a href="#fig:001">рис. 1</a></p>
+<figure id="fig:001">
+<img src="1.jpg" style="width:70.0%" alt="Клонирование репозитория" />
+<figcaption aria-hidden="true">Клонирование репозитория</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-1">Выполнение лабораторной
+работы</h2>
+<p>Предоставляем все права доступа к папке DVWA: Cм. <a
+href="#fig:002">рис. 2</a></p>
+<figure id="fig:002">
+<img src="2.jpg" style="width:70.0%"
+alt="Предоставление прав доступа" />
+<figcaption aria-hidden="true">Предоставление прав доступа</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-2">Выполнение лабораторной
+работы</h2>
+<p>Создаём копию файла, если вдруг возникнут ошибки в ходе выполнения
+работы: Cм. <a href="#fig:003">рис. 3</a></p>
+<figure id="fig:003">
+<img src="3.jpg" style="width:70.0%" alt="Создание копии файла" />
+<figcaption aria-hidden="true">Создание копии файла</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-3">Выполнение лабораторной
+работы</h2>
+<p>Открываем файл в текстовом редакторе nano: Cм. <a
+href="#fig:004">рис. 4</a>.</p>
+<figure id="fig:004">
+<img src="4.jpg" style="width:70.0%"
+alt="Открытый файл в редакторе nano" />
+<figcaption aria-hidden="true">Открытый файл в редакторе
+nano</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-4">Выполнение лабораторной
+работы</h2>
+<p>Меняем данные об имени пользователя и пароле: Cм. <a
+href="#fig:005">рис. 5</a>.</p>
+<figure id="fig:005">
+<img src="5.jpg" style="width:70.0%"
+alt="Изменение имени пользователя и пароля" />
+<figcaption aria-hidden="true">Изменение имени пользователя и
+пароля</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-5">Выполнение лабораторной
+работы</h2>
+<p>Проходим авторизацию в базе данных от имени пользователя root.
+Создаём нового пользователя, при этом пользуемся учетными данными из
+файла config.inc.php: Cм. <a href="#fig:006">рис. 6</a>.</p>
+<figure id="fig:006">
+<img src="6.jpg" style="width:70.0%" alt="Авторизация" />
+<figcaption aria-hidden="true">Авторизация</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-6">Выполнение лабораторной
+работы</h2>
+<p>Предоставляем все привилегии для работы с базой данных: Cм. <a
+href="#fig:007">рис. 7</a>.</p>
+<figure id="fig:007">
+<img src="7.jpg" style="width:70.0%" alt="Изменение прав" />
+<figcaption aria-hidden="true">Изменение прав</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-7">Выполнение лабораторной
+работы</h2>
+<p>В файле параметры allow_url_fopen и allow_url_include должны быть
+проставлены как On: Cм. <a href="#fig:008">рис. 8</a>.</p>
+<figure id="fig:008">
+<img src="8.jpg" style="width:70.0%" alt="Редактирование файла" />
+<figcaption aria-hidden="true">Редактирование файла</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-8">Выполнение лабораторной
+работы</h2>
+<p>Запускаем службу веб-сервера apache и проверяем, была ли служба
+запущена: Cм. <a href="#fig:009">рис. 9</a>.</p>
+<figure id="fig:009">
+<img src="9.jpg" style="width:70.0%" alt="Запуск apache" />
+<figcaption aria-hidden="true">Запуск apache</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-9">Выполнение лабораторной
+работы</h2>
+<p>Теперь можем открыть браузер и запустить веб-приложение: Cм. <a
+href="#fig:010">рис. 10</a>.</p>
+<figure id="fig:010">
+<img src="10.jpg" style="width:70.0%" alt="Запуск веб-приложения" />
+<figcaption aria-hidden="true">Запуск веб-приложения</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-10">Выполнение лабораторной
+работы</h2>
+<p>Проходим авторизацию при помощи предложенных по умолчанию данных: Cм.
+<a href="#fig:011">рис. 11</a>.</p>
+<figure id="fig:011">
+<img src="11.jpg" style="width:70.0%" alt="Авторизация" />
+<figcaption aria-hidden="true">Авторизация</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-11">Выполнение лабораторной
+работы</h2>
+<p>Оказываемся на домашней странице веб-приложения: Cм. <a
+href="#fig:012">рис. 12</a>.</p>
+<figure id="fig:012">
+<img src="12.jpg" style="width:70.0%" alt="Домашняя страницы DVWA" />
+<figcaption aria-hidden="true">Домашняя страницы DVWA</figcaption>
+</figure>
+<h2 id="заключение">Заключение</h2>
+<p>Получили практические навыки по установке DVWA.</p>
+<h2 id="библиографическая-справка">Библиографическая справка</h2>
+<p>[1] DVWA: https://itsecforu.ru/2018/02/14/5071/</p>
+</body>
+</html>
