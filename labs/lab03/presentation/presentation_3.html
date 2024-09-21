@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU" xml:lang="ru-RU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2024-01-01" />
+  <title>Лабораторная работа №3. Дискреционное разграничение прав в Linux. Два пользователя</title>
+  <style>
+    html {
+      font-family: Arial;
+      font-size: 8pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Courier New;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа №3. Дискреционное разграничение
+прав в Linux. Два пользователя</h1>
+<p class="author"><p>Выполнила: Лебедева Ольга Андреевна<br />
+Преподаватель Кулябов Дмитрий Сергеевич д.ф.-м.н.,   профессор кафедры
+прикладной информатики и кибербезопасности</p></p>
+<p class="date"><p>2024</p></p>
+</header>
+<h2 id="цель-работы">Цель работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов
+для групп пользователей.</p>
+<h2 id="теоретическое-введение">Теоретическое введение</h2>
+<p>В Linux, как и в любой многопользовательской системе, естественным
+образом возникает задача разграничения доступа субъектов — пользователей
+к объектам — файлам дерева каталогов.</p>
+<p>Один из подходов к разграничению доступа — так называемый
+дискреционный — предполагает назначение владельцев объектов, которые по
+собственному усмотрению определяют права доступа субъектов (других
+пользователей) к объектам (файлам), которыми владеют.</p>
+<h2 id="выполнение-лабораторной-работы">Выполнение лабораторной
+работы</h2>
+<p>В установленной операционной системе создайте учётную запись
+пользователя guest.</p>
+<p>Задайте пароль для пользователя guest.</p>
+<p>Данные пункты были выполнены в лабораторных работах №1 и №2.</p>
+<h2 id="выполнение-лабораторной-работы-1">Выполнение лабораторной
+работы</h2>
+<p>Аналогично создайте второго пользователя guest: Cм. <a
+href="#fig:001">рис. 1</a></p>
+<figure id="fig:001">
+<img src="1.jpg" style="width:70.0%"
+alt="Создание пользователя guest2" />
+<figcaption aria-hidden="true">Создание пользователя guest2</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-2">Выполнение лабораторной
+работы</h2>
+<p>Добавьте пользователя guest2 в группу guest: Cм. <a
+href="#fig:002">рис. 2</a></p>
+<figure id="fig:002">
+<img src="2.jpg" style="width:70.0%"
+alt="Добавление guest2 в группу guest" />
+<figcaption aria-hidden="true">Добавление guest2 в группу
+guest</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-3">Выполнение лабораторной
+работы</h2>
+<p>Осуществите вход в систему от двух пользователей на двух разных
+консолях: guest на первой консоли и guest2 на второй консоли.</p>
+<p>Для обоих пользователей командой pwd определите директорию, в которой
+вы находитесь. Сравните её с приглашениями командной строки.</p>
+<h2 id="выполнение-лабораторной-работы-4">Выполнение лабораторной
+работы</h2>
+<p>Уточните имя вашего пользователя, его группу, кто входит в неё и к
+каким группам принадлежит он сам. Определите командами groups guest и
+groups guest2, в какие группы входят пользователи guest и guest2.
+Сравните вывод команды groups с выводом команд id -Gn и id -G: Cм. <a
+href="#fig:003">рис. 3</a></p>
+<figure id="fig:003">
+<img src="3.jpg" style="width:70.0%"
+alt="Информация о guest и guest2" />
+<figcaption aria-hidden="true">Информация о guest и guest2</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-5">Выполнение лабораторной
+работы</h2>
+<p>Сравните полученную информацию с содержимым файла /etc/group: Cм. <a
+href="#fig:004">рис. 4</a>.</p>
+<figure id="fig:004">
+<img src="4.jpg" style="width:70.0%" alt="Файл group" />
+<figcaption aria-hidden="true">Файл group</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-6">Выполнение лабораторной
+работы</h2>
+<p>От имени пользователя guest2 выполните регистрацию пользователя
+guest2 в группе guest: Cм. <a href="#fig:005">рис. 5</a>.</p>
+<figure id="fig:005">
+<img src="5.jpg" style="width:70.0%"
+alt="Регистрация пользователя guest2" />
+<figcaption aria-hidden="true">Регистрация пользователя
+guest2</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-7">Выполнение лабораторной
+работы</h2>
+<p>От имени пользователя guest измените права директории /home/guest,
+разрешив все действия для пользователей группы: Cм. <a
+href="#fig:006">рис. 6</a>.</p>
+<figure id="fig:006">
+<img src="6.jpg" style="width:70.0%" alt="Изменение прав директории" />
+<figcaption aria-hidden="true">Изменение прав директории</figcaption>
+</figure>
+<h2 id="выполнение-лабораторной-работы-8">Выполнение лабораторной
+работы</h2>
+<p>От имени пользователя guest снимите с директории /home/guest/dir1 все
+атрибуты командой chmod 000 dirl и проверьте правильность снятия
+атрибутов: Cм. <a href="#fig:007">рис. 7</a>.</p>
+<figure id="fig:007">
+<img src="7.jpg" style="width:70.0%" alt="Проверка атрибутов" />
+<figcaption aria-hidden="true">Проверка атрибутов</figcaption>
+</figure>
+<h2 id="заключение">Заключение</h2>
+<p>Получили практические навыки работы в консоли с атрибутами файлов для
+групп пользователей.</p>
+<h2 id="библиографическая-справка">Библиографическая справка</h2>
+<p>[1] Дискреционное разграничение доступа Linux:
+https://debianinstall.ru/diskretsionnoe-razgranichenie-dostupa-linux/</p>
+</body>
+</html>
