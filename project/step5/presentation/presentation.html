@@ -1,0 +1,148 @@
+\begin{frame}{Цель работы}
+\phantomsection\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+Научиться использовать Burp Suite.
+\end{frame}
+
+\begin{frame}{Теоретическое введение}
+\phantomsection\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+Burp Suite --- это набор инструментов для проведения аудита безопасности
+веб-приложений. Он позволяет анализировать трафик между клиентом и
+сервером, обнаруживать уязвимости в приложениях и автоматически
+создавать эксплойты для их использования. Burp Suite также может
+использоваться для тестирования на проникновение и мониторинга
+безопасности сетей{[}1{]}.
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+Подготовим открытие приложения DVWA. Для этого запустим локальный
+сервер: Cм. \hyperlink{fig:001}{рис. 1}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{1.png}
+\caption{Запуск локального сервера}\label{fig:001}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-1}
+Через консоль запускаем инструмент Burp Suite: Cм.
+\hyperlink{fig:002}{рис. 2}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{2.png}
+\caption{Запуск Burp Suite}\label{fig:002}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-2}
+Заходим в настройки браузера в раздел netwirk settings: Cм.
+\hyperlink{fig:003}{рис. 3}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{3.png}
+\caption{Настройки браузера}\label{fig:003}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-3}
+Меняем настройки сервера для возможности работы с proxy и захватом
+данных при помощи Burp Suite: Cм. \hyperlink{fig:004}{рис. 4}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{4.png}
+\caption{Network settings}\label{fig:004}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-4}
+Заходим в раздел settings в Burp Suite и настраиваем параметры: Cм.
+\hyperlink{fig:005}{рис. 5}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{5.png}
+\caption{Settings в Burp Suite}\label{fig:005}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-5}
+Для последующей работы изменяем настройки в разделе proxy. Ставим
+``intercept is on'': Cм. \hyperlink{fig:006}{рис. 6}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{6.png}
+\caption{Настройки proxy}\label{fig:006}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-6}
+В настройках браузера необходимо установить параметр
+network.proxy.allow\_hijacking\_localhost на значение true: Cм.
+\hyperlink{fig:007}{рис. 7}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{7.png}
+\caption{Установка парамета
+network.proxy.allow\_hijacking\_localhost}\label{fig:007}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-7}
+Пробуем зайти на сайт DVWA, и нас сразу перенаправляет в приложение Burp
+Suite: Cм. \hyperlink{fig:008}{рис. 8}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{8.png}
+\caption{Захваченный запрос}\label{fig:008}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-8}
+Нажимаем клавишу forward, и скрипт запроса в разделе proxy меняется.
+Теперь загружается и страница авторизации: Cм. \hyperlink{fig:009}{рис.
+9}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{9.png}
+\caption{Изменение запроса}\label{fig:009}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-9}
+Переходим во вкладку target, там мы можем увидеть историю запросов: Cм.
+\hyperlink{fig:010}{рис. 10}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{10.png}
+\caption{История запросов}\label{fig:010}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Заключение}
+\phantomsection\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+Приобрели навыки использования набора инструментов Burp Suite.
+\end{frame}
+
+\begin{frame}{Библиографическая справка}
+\phantomsection\label{ux431ux438ux431ux43bux438ux43eux433ux440ux430ux444ux438ux447ux435ux441ux43aux430ux44f-ux441ux43fux440ux430ux432ux43aux430}
+{[}1{]} Burp Suite:
+https://ru.hexlet.io/qna/glossary/questions/chto-takoe-burp-suite
+\end{frame}
