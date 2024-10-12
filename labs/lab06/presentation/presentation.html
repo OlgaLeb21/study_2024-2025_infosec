@@ -1,0 +1,405 @@
+\begin{frame}{Цель работы}
+\phantomsection\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+Развить навыки администрирования ОС Linux. Получить первое практическое
+знакомство с технологией SELinux1. Проверить работу SELinx на практике
+совместно с веб-сервером Apache.
+\end{frame}
+
+\begin{frame}{Теоретическое введение}
+\phantomsection\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+Мандатное управление доступом (Mandatory Access Control, MAC)
+предназначено для обеспечения большего уровня безопасности и контроля
+над доступом к ресурсам системы.
+
+Мандатное разграничение доступа применяется в совокупности с
+дискреционным разграничением доступа. Оно определяет правила доступа на
+основе атрибутов объектов и субъектов, которые затем при проверке
+определяют разрешен ли доступ. Объект в данной модели -- это то, над чем
+совершаются какие-либо действия, а субъект -- исполнитель этого
+действия. Значение уровня доступа субъекта или объекта называется
+меткой. Метка может быть символьной или числовой. Проверка полномочий
+определяется при помощи сопоставления меток объекта и субъекта.
+Пользователи системы не могут самостоятельно определять доступ субъектов
+к объектам. Управление доступом субъектов к объектам осуществляют только
+администраторы{[}1{]}.
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+Перед выполнением лабораторной работы подготовим рабочее пространство и
+скачаем httpd: Cм. \hyperlink{fig:001}{рис. 1}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{1.png}
+\caption{Скачивание httpd}\label{fig:001}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-1}
+В конфигурационном файле задаем ServerName и отключаем пакетный фильтр:
+Cм. \hyperlink{fig:002}{рис. 2}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{2.png}
+\caption{ServerName}\label{fig:002}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-2}
+\begin{enumerate}
+\tightlist
+\item
+  Войдите в систему с полученными учётными данными и убедитесь, что
+  SELinux работает в режиме enforcing политики targeted: Cм.
+  \hyperlink{fig:003}{рис. 3}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{3.png}
+\caption{Вход в систему}\label{fig:003}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-3}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Обратитесь с помощью браузера к веб-серверу, запущенному на вашем
+  компьютере, и убедитесь, что последний работает: Cм.
+  \hyperlink{fig:004}{рис. 4}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{4.png}
+\caption{Обращение к веб-серверу}\label{fig:004}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-4}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Найдите веб-сервер Apache в списке процессов, определите его контекст
+  безопасности и занесите эту информацию в отчёт: Cм.
+  \hyperlink{fig:005}{рис. 5}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{5.png}
+\caption{Контекст безопасности}\label{fig:005}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-5}
+\begin{enumerate}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Посмотрите текущее состояние переключателей SELinux для Apache: Cм.
+  \hyperlink{fig:006}{рис. 6}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{6.png}
+\caption{Состояние переключателей SELinux}\label{fig:006}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-6}
+Посмотрите статистику по политике с помощью команды seinfo, также
+определите множество пользователей, ролей, типов: Cм.
+\hyperlink{fig:007}{рис. 7}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{7.png}
+\caption{Статистика по политике}\label{fig:007}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-7}
+\begin{enumerate}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Определите тип файлов и поддиректорий, находящихся в директории
+  /var/www, с помощью команды ls -lZ /var/www
+\item
+  Определите тип файлов, находящихся в директории /var/www/html: ls -lZ
+  /var/www/html: Cм. \hyperlink{fig:008}{рис. 8}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-8}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{8.png}
+\caption{Определение типа файлов и директорий}\label{fig:008}
+\end{figure}
+
+\begin{enumerate}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Определите круг пользователей, которым разрешено создание файлов в
+  директории /var/www/html.
+\item
+  Создайте от имени суперпользователя (так как в дистрибутиве после
+  установки только ему разрешена запись в директорию) html-файл
+  /var/www/html/test.html.
+\item
+  Проверьте контекст созданного вами файла. Занесите в отчёт контекст,
+  присваиваемый по умолчанию вновь созданным файлам в директории
+  /var/www/html.: Cм. \hyperlink{fig:009}{рис. 9}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{9.png}
+\caption{Создание файла test.html}\label{fig:009}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-9}
+\begin{enumerate}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Обратитесь к файлу через веб-сервер, введя в браузере адрес
+  http://127.0.0.1/test.html. Убедитесь, что файл был успешно отображён:
+  Cм. \hyperlink{fig:010}{рис. 10}
+\end{enumerate}
+
+\includegraphics{10.png}\{ \#fig:010 width=70\%
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы\}}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-10}
+\begin{enumerate}
+\setcounter{enumi}{11}
+\tightlist
+\item
+  Изучите справку man httpd\_selinux и выясните, какие контексты файлов
+  определены для httpd: Cм. \hyperlink{fig:011}{рис. 11}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{11.png}
+\caption{Контексты файлов для httpd}\label{fig:011}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-11}
+\begin{enumerate}
+\setcounter{enumi}{12}
+\tightlist
+\item
+  Измените контекст файла /var/www/html/test.html с
+  httpd\_sys\_content\_t на любой другой, к которому процесс httpd не
+  должен иметь доступа, например, на samba\_share\_t. Cм.
+  \hyperlink{fig:012}{рис. 12}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{12.png}
+\caption{Изменение контекста}\label{fig:012}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-12}
+\begin{enumerate}
+\setcounter{enumi}{13}
+\tightlist
+\item
+  Попробуйте ещё раз получить доступ к файлу через веб-сервер, введя в
+  браузере адрес http://127.0.0.1/test.html. Вы должны получить
+  сообщение об ошибке: Cм. \hyperlink{fig:013}{рис. 13}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{13.png}
+\caption{Ошибка доступа}\label{fig:013}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-13}
+\begin{enumerate}
+\setcounter{enumi}{14}
+\tightlist
+\item
+  Проанализируйте ситуацию. Почему файл не был отображён, если права
+  доступа позволяют читать этот файл любому пользователю? Просмотрите
+  log-файлы веб-сервера Apache. Также просмотрите системный лог-файл.
+  Cм. \hyperlink{fig:014}{рис. 14}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{14.png}
+\caption{Просмотр log-файлов}\label{fig:014}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-14}
+\begin{enumerate}
+\setcounter{enumi}{15}
+\tightlist
+\item
+  Попробуйте запустить веб-сервер Apache на прослушивание ТСР-порта 81
+  (а не 80, как рекомендует IANA и прописано в /etc/services). Для этого
+  в файле /etc/httpd/httpd.conf найдите строчку Listen 80 и замените её
+  на Listen 81. Cм. \hyperlink{fig:015}{рис. 15}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{15.png}
+\caption{Замена порта на 81}\label{fig:015}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-15}
+\begin{enumerate}
+\setcounter{enumi}{16}
+\tightlist
+\item
+  Выполните перезапуск веб-сервера Apache. Произошёл сбой? Поясните
+  почему?
+\item
+  Проанализируйте лог-файлы. Cм. \hyperlink{fig:016}{рис. 16}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{16.png}
+\caption{Лог-файлы}\label{fig:016}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-16}
+\begin{enumerate}
+\setcounter{enumi}{18}
+\tightlist
+\item
+  Выполните команду semanage port -a -t http\_port\_t -р tcp 81. После
+  этого проверьте список портов. Убедитесь, что порт 81 появился в
+  списке. Cм. \hyperlink{fig:017}{рис. 17}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{17.png}
+\caption{Проверка порта}\label{fig:017}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-17}
+\begin{enumerate}
+\setcounter{enumi}{19}
+\tightlist
+\item
+  Попробуйте запустить веб-сервер Apache ещё раз. Cм.
+  \hyperlink{fig:018}{рис. 18}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{20.png}
+\caption{Запуск сервера}\label{fig:018}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-18}
+\begin{enumerate}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  Верните контекст httpd\_sys\_cоntent\_\_t к файлу /var/www/html/
+  test.html: chcon -t httpd\_sys\_content\_t /var/www/html/test.html
+  После этого попробуйте получить доступ к файлу через веб-сервер, введя
+  в браузере адрес http://127.0.0.1:81/test.html. Вы должны увидеть
+  содержимое файла --- слово «test». Cм. \hyperlink{fig:019}{рис. 19}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{18.png}
+\caption{Возврат контекста}\label{fig:019}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-19}
+\begin{enumerate}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  Исправьте обратно конфигурационный файл apache, вернув Listen 80.
+\item
+  Удалите привязку http\_port\_t к 81 порту и проверьте, что порт 81
+  удалён. Cм. \hyperlink{fig:020}{рис. 20}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{21.png}
+\caption{Удаление привязки к 81 порту}\label{fig:020}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b-20}
+\begin{enumerate}
+\setcounter{enumi}{23}
+\tightlist
+\item
+  Удалите файл /var/www/html/test.html: Cм. \hyperlink{fig:021}{рис. 21}
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{22.png}
+\caption{Удаление файла}\label{fig:021}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Заключение}
+\phantomsection\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}
+Развили навыки администрирования ОС Linux. Получили первое практическое
+знакомство с технологией SELinux1. Проверили работу SELinx на практике
+совместно с веб-сервером Apache.
+\end{frame}
+
+\begin{frame}{Библиографическая справка}
+\phantomsection\label{ux431ux438ux431ux43bux438ux43eux433ux440ux430ux444ux438ux447ux435ux441ux43aux430ux44f-ux441ux43fux440ux430ux432ux43aux430}
+{[}1{]} Мандатное управление:
+https://itcloud-edu.ru/info/articles/upravlenie-dostupom-v-gnu-linux/
+\end{frame}
